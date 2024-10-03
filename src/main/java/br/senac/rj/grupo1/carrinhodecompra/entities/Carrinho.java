@@ -5,14 +5,6 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.CascadeType;
 
 @Entity
 @Table(name = "cart")
@@ -30,8 +22,7 @@ public class Carrinho {
     private BigDecimal valorTotal;
     @Column(name = "usuario_id", nullable = false)
     private long usuarioId;
-    @OneToMany
-    @JoinColumn(mappedBy="carrinhoId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="carrinhoId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemCarrinho> itens;
 
     public int getId() {

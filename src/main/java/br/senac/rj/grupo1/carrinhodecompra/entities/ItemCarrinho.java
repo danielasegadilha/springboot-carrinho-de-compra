@@ -18,7 +18,7 @@ public class ItemCarrinho {
     @Column(name = "product_id", nullable = false)
     private long produtoId;
     @ManyToOne
-    @Column(name = "cart_id", nullable = false)
+    @JoinColumn(name = "cart_id", nullable = false)
     private Carrinho carrinhoId;
 
 
