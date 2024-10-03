@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "carts")
 public class Carrinho {
 
     @Id
@@ -37,8 +37,8 @@ public class Carrinho {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
+    public void setDataCriacao() {
+        this.dataCriacao = LocalDateTime.now(); // Define sempre como agora
     }
 
     public String getStatus() {
@@ -72,11 +72,5 @@ public class Carrinho {
     public void setItens(List<ItemCarrinho> itens) {
         this.itens = itens;
     }
-
-    //    public double calcularTotal() {
-//        return itens.stream()
-//                .mapToDouble(item -> item.getQuantidade() * item.getProduto().getPreco())
-//                .sum();
-//    }
 
 }

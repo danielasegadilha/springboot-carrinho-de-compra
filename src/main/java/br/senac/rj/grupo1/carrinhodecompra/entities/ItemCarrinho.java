@@ -2,11 +2,8 @@ package br.senac.rj.grupo1.carrinhodecompra.entities;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Entity
+@Table(name = "cart_items")
 public class ItemCarrinho {
 
     @Id
@@ -21,7 +18,36 @@ public class ItemCarrinho {
     @JoinColumn(name = "cart_id", nullable = false)
     private Carrinho carrinhoId;
 
+    public int getId() {
+        return id;
+    }
 
-//    public double getQuantidade() {
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public long getProdutoId() {
+        return produtoId;
+    }
+
+    public void setProdutoId(long produtoId) {
+        this.produtoId = produtoId;
+    }
+
+    public Carrinho getCarrinhoId() {
+        return carrinhoId;
+    }
+
+    public void setCarrinhoId(Carrinho carrinhoId) {
+        this.carrinhoId = carrinhoId;
+    }
+
 }
