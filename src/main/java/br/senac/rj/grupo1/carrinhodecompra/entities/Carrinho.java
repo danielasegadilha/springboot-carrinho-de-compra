@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "carts")
 public class Carrinho {
 
     @Id
@@ -72,11 +72,5 @@ public class Carrinho {
     public void setItens(List<ItemCarrinho> itens) {
         this.itens = itens;
     }
-
-    //    public double calcularTotal() {
-//        return itens.stream()
-//                .mapToDouble(item -> item.getQuantidade() * item.getProduto().getPreco())
-//                .sum();
-//    }
 
 }
