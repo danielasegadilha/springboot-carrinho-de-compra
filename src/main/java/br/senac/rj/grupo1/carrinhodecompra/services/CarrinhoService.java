@@ -8,9 +8,4 @@ import java.math.BigDecimal;
 @Service
 public class CarrinhoService {
 
-//    public BigDecimal calcularTotal(Carrinho carrinho) {
-//        return carrinho.getItens().stream()
-//                .map(item -> item.getProdutoId().getPreco().multiply(new BigDecimal(item.getQuantidade())))
-//                .reduce(BigDecimal.ZERO, BigDecimal::add);
-//    }
 }
