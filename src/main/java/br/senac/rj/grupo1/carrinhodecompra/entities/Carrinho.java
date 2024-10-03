@@ -37,8 +37,8 @@ public class Carrinho {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
+    public void setDataCriacao() {
+        this.dataCriacao = LocalDateTime.now(); // Define sempre como agora
     }
 
     public String getStatus() {
