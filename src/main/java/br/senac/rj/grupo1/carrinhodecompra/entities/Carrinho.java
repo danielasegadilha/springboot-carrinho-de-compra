@@ -14,20 +14,15 @@ public class Carrinho {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
-
     @Column(name = "dt_criacao")
     private LocalDateTime dataCriacao;
-
     @Column(columnDefinition = "VARCHAR", nullable = false)
-    private int status;
-
+    private String status;
     @Column(name = "total", columnDefinition = "DECIMAL")
     private BigDecimal valorTotal;
-    @Column(name = "usuario_id")
+    @Column(name = "usuario_id", nullable = false)
     private long usuarioId;
-
-    @ManyToMany
-    @JoinColumn(name="carrinhoId")
+    @OneToMany(mappedBy="carrinhoId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemCarrinho> itens;
 
     public int getId() {
@@ -46,11 +41,11 @@ public class Carrinho {
         this.dataCriacao = dataCriacao;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
