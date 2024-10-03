@@ -30,9 +30,58 @@ public class Carrinho {
     @JoinColumn(name="carrinhoId")
     private List<ItemCarrinho> itens;
 
-//    public double calcularTotal() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public List<ItemCarrinho> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemCarrinho> itens) {
+        this.itens = itens;
+    }
+
+    //    public double calcularTotal() {
 //        return itens.stream()
 //                .mapToDouble(item -> item.getQuantidade() * item.getProduto().getPreco())
 //                .sum();
 //    }
+
 }
