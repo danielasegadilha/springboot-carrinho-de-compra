@@ -5,6 +5,14 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
 
 @Entity
 @Table(name = "cart")
@@ -14,20 +22,16 @@ public class Carrinho {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
-
     @Column(name = "dt_criacao")
     private LocalDateTime dataCriacao;
-
     @Column(columnDefinition = "VARCHAR", nullable = false)
-    private int status;
-
+    private String status;
     @Column(name = "total", columnDefinition = "DECIMAL")
     private BigDecimal valorTotal;
-    @Column(name = "usuario_id")
+    @Column(name = "usuario_id", nullable = false)
     private long usuarioId;
-
-    @ManyToMany
-    @JoinColumn(name="carrinhoId")
+    @OneToMany
+    @JoinColumn(mappedBy="carrinhoId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemCarrinho> itens;
 
     public int getId() {
@@ -46,11 +50,11 @@ public class Carrinho {
         this.dataCriacao = dataCriacao;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
