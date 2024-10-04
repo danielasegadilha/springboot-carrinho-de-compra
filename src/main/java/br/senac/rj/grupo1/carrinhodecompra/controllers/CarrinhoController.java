@@ -17,7 +17,7 @@ import br.senac.rj.grupo1.carrinhodecompra.entities.Carrinho;
 import br.senac.rj.grupo1.carrinhodecompra.services.CarrinhoService;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/carrinho")
 public class CarrinhoController {
 	
 	private final CarrinhoService carrinhoService;
@@ -26,35 +26,29 @@ public class CarrinhoController {
 		this.carrinhoService = carrinhoService;
 	}
 	
-	@PostMapping
-	public ResponseEntity<Carrinho> createCarrinho(@RequestBody Carrinho carrinho){
-		Carrinho carrinhoCriado = carrinhoService.createCarrinho(carrinho);
-		return new ResponseEntity<>(carrinho, HttpStatus.CREATED);
+	@PostMapping("/{user_id}")
+	public ResponseEntity<Carrinho> createCarrinho(@PathVariable int user_id){
+		Carrinho carrinhoCriado = carrinhoService.createCarrinho(user_id);
+		return new ResponseEntity<>(carrinhoCriado, HttpStatus.CREATED);
 				
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<Carrinho> updateUsuario(@PathVariable int id, @RequestBody Carrinho carrinho){
-		carrinho.setId(id);
-		Carrinho carrinhoAtualizado = carrinhoService.updateCarrinho(carrinho);
-		return ResponseEntity.ok(carrinhoAtualizado);
-	}
 	
-	@PutMapping("/api/usuarios/{id}/finalizar")
-	public ResponseEntity<Void> finalizarCarrinhoById(@PathVariable int id){
-		carrinhoService.finalizaCarrinhoById(id);
+	@PutMapping("/api/carrinho/{cart_id}/finalizar")
+	public ResponseEntity<Void> finalizarCarrinhoById(@PathVariable int cart_id){
+		carrinhoService.finalizaCarrinhoById(cart_id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteCarrinhoById(@PathVariable int id){
-		carrinhoService.removeCarrinhoById(id);
+	@DeleteMapping("/{cart_id}")
+	public ResponseEntity<Void> deleteCarrinhoById(@PathVariable int cart_id){
+		carrinhoService.removeCarrinhoById(cart_id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Carrinho> getCarrinhoById(@PathVariable int id){
-		Carrinho carrinhoEncontrado = carrinhoService.getCarrinhoById(id);
+	@GetMapping("/{cart_id}")
+	public ResponseEntity<Carrinho> getCarrinhoById(@PathVariable int cart_id){
+		Carrinho carrinhoEncontrado = carrinhoService.getCarrinhoById(cart_id);
 		return ResponseEntity.ok(carrinhoEncontrado);
 	}
 	

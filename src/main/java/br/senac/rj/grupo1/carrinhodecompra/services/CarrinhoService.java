@@ -18,19 +18,12 @@ public class CarrinhoService {
 		this.carrinhoRepository = carrinhoRepository;
 	}
 	
-	@Transactional
-	public Carrinho createCarrinho(Carrinho carrinho) {
-		return carrinhoRepository.save(carrinho);
-	}
-	
-	@Transactional 
-	public Carrinho updateCarrinho(Carrinho carrinho) {
-		if (!carrinhoRepository.existsById(carrinho.getId())) {
-			throw new EntidadeNaoEncontradaException("Carrinho com ID " + carrinho.getId() + " não encontrado para deleção");
-		}
-		return carrinhoRepository.save(carrinho);
-	}
-	
+    @Transactional
+    public Carrinho createCarrinho(int userId) {
+        carrinhoRepository.createCarrinho(userId);
+        return carrinhoRepository.findTopByUsuarioIdOrderByIdDesc(userId);
+    }
+		
 	@Transactional
 	public void removeCarrinhoById(int id) {
 		if (!carrinhoRepository.existsById(id)) {
@@ -42,14 +35,14 @@ public class CarrinhoService {
 	@Transactional
 	public void finalizaCarrinhoById(int id) {
 		if (!carrinhoRepository.existsById(id)) {
-			throw new EntidadeNaoEncontradaException("Carrinho com ID " + id + " não encontrado para deleção");
+			throw new EntidadeNaoEncontradaException("Carrinho com ID " + id + " não encontrado para finalização");
 		}
 		carrinhoRepository.FinalizarCarrinhoById(id);
 	}
 	
 	public Carrinho getCarrinhoById(int id) {
 		return carrinhoRepository.findByIdAndStatusNot(id, -1)
-				.orElseThrow(() -> new EntidadeNaoEncontradaException("Carrinho com ID " + id + " não encontrado para deleção"));
+				.orElseThrow(() -> new EntidadeNaoEncontradaException("Carrinho com ID " + id + " não encontrado"));
 	}
 	
 	public List<Carrinho> getAllCarrinhos(){
