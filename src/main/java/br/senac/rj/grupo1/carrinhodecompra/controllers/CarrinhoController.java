@@ -40,7 +40,7 @@ public class CarrinhoController {
 		return ResponseEntity.ok(carrinhoAtualizado);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/api/usuarios/{id}/finalizar")
 	public ResponseEntity<Void> finalizarCarrinhoById(@PathVariable int id){
 		carrinhoService.finalizaCarrinhoById(id);
 		return ResponseEntity.noContent().build();

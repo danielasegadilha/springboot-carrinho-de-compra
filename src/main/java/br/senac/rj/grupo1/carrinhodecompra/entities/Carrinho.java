@@ -16,7 +16,7 @@ public class Carrinho {
     private int id;
     @Column(name = "dt_criacao")
     private LocalDateTime dataCriacao;
-    @Column(name = "status", columnDefinition = "VARCHAR", nullable = false, length = 50)
+    @Column(name = "status", nullable = false)
     private int status;
     @Column(name = "total", columnDefinition = "DECIMAL")
     private BigDecimal valorTotal;
