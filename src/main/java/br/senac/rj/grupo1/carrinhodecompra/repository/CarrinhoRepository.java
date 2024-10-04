@@ -15,8 +15,8 @@ import br.senac.rj.grupo1.carrinhodecompra.entities.Carrinho;
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Integer>{
 	
 	Optional<Carrinho> findByIdAndStatusNot(int id, int status);
-	
-	@Query("Select c from Carrinho c WHERE c.status != -1")
+
+	@Query("SELECT c FROM Carrinho c WHERE c.status != -1")
 	List<Carrinho> findCarrinhosAtivos();
 	
 	@Modifying
