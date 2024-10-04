@@ -16,8 +16,8 @@ public class Carrinho {
     private int id;
     @Column(name = "dt_criacao")
     private LocalDateTime dataCriacao;
-    @Column(columnDefinition = "VARCHAR", nullable = false)
-    private String status;
+    @Column(name = "status", columnDefinition = "VARCHAR", nullable = false, length = 50)
+    private int status;
     @Column(name = "total", columnDefinition = "DECIMAL")
     private BigDecimal valorTotal;
     @Column(name = "usuario_id", nullable = false)
@@ -41,11 +41,11 @@ public class Carrinho {
         this.dataCriacao = LocalDateTime.now(); // Define sempre como agora
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

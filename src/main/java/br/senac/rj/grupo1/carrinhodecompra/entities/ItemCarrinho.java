@@ -8,15 +8,17 @@ public class ItemCarrinho {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private int id;
-    @Column(nullable = false)
-    private int quantidade;
-    @Column(name = "product_id", nullable = false)
-    private long produtoId;
+    private Integer id;
+
+    @Column(name = "quantidade", nullable = false)
+    private Integer quantidade;
+
     @ManyToOne
     @JoinColumn(name = "cart_id", nullable = false)
     private Carrinho carrinhoId;
+
+    @Column(name = "product_id", nullable = false)
+    private Long produtoId;
 
     public int getId() {
         return id;
