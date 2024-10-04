@@ -14,10 +14,10 @@ import br.senac.rj.grupo1.carrinhodecompra.entities.Carrinho;
 @Repository
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Integer>{
 	
-	Optional<Carrinho> findByIdAndStatusNot(int id, int status);
-	
-	@Query("Select c from Carrinho c WHERE c.status != -1")
-	List<Carrinho> findCarrinhosAtivos();
+	Optional<Carrinho> findByIdAndStatusNot(int id, String status);
+
+	@Query("SELECT c FROM Carrinho c WHERE c.status = :status")
+	List<Carrinho> findCarrinhosAtivos(@Param("status") String status);
 	
 	@Modifying
 	@Query(value = "UPDATE carts c SET c.status = -1 WHERE c.id = :id", nativeQuery = true)
