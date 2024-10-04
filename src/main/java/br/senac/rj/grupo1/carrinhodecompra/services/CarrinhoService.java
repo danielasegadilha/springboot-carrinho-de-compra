@@ -23,7 +23,8 @@ public class CarrinhoService {
 		return carrinhoRepository.save(carrinho);
 	}
 	
-	@Transactional Carrinho updateCarrinho(Carrinho carrinho) {
+	@Transactional 
+	public Carrinho updateCarrinho(Carrinho carrinho) {
 		if (!carrinhoRepository.existsById(carrinho.getId())) {
 			throw new EntidadeNaoEncontradaException("Carrinho com ID " + carrinho.getId() + " não encontrado para deleção");
 		}
