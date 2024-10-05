@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.senac.rj.grupo1.carrinhodecompra.entities.Carrinho;
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface CarrinhoRepository extends JpaRepository<Carrinho, Integer>{
@@ -26,4 +27,11 @@ public interface CarrinhoRepository extends JpaRepository<Carrinho, Integer>{
 	@Modifying
 	@Query(value = "UPDATE carts c SET c.status = 2 WHERE c.id = :id", nativeQuery = true)
 	void FinalizarCarrinhoById(@Param("id") int id);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO carts (status, total, user_id) VALUES (1, 0.00, :user_id)", nativeQuery = true)
+	void createCarrinho(@Param("user_id") int userId);
+	
+	Carrinho findTopByUsuarioIdOrderByIdDesc(int usuarioId);
 }

@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "carts")
 public class Carrinho {
@@ -20,9 +22,10 @@ public class Carrinho {
     private int status;
     @Column(name = "total", columnDefinition = "DECIMAL")
     private BigDecimal valorTotal;
-    @Column(name = "usuario_id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private long usuarioId;
     @OneToMany(mappedBy="carrinhoId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("carrinhoId")
     private List<ItemCarrinho> itens;
 
     public int getId() {

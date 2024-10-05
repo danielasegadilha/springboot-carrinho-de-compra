@@ -1,5 +1,7 @@
 package br.senac.rj.grupo1.carrinhodecompra.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
