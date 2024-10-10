@@ -12,7 +12,16 @@ import org.springframework.stereotype.Repository;
 import br.senac.rj.grupo1.carrinhodecompra.entities.ItemCarrinho;
 
 @Repository
-public interface ItemCarrinhoRepository extends JpaRepository<ItemCarrinho, Integer>{
-	
+public interface ItemCarrinhoRepository extends JpaRepository<ItemCarrinho, Integer> {
 
+    @Query("SELECT i FROM ItemCarrinho i WHERE i.cart.id = :cartId")
+    List<ItemCarrinho> findItemsByCartId(@Param("cartId") int cartId);
+
+    @Modifying
+    @Query("DELETE FROM ItemCarrinho i WHERE i.cart.id = :cartId")
+    void deleteItemsByCartId(@Param("cartId") int cartId);
+
+    @Modifying
+    @Query("UPDATE ItemCarrinho i SET i.quantidade = :quantidade WHERE i.id = :id")
+    void updateItemQuantity(@Param("id") int id, @Param("quantidade") int quantidade);
 }
