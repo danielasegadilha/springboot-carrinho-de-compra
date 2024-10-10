@@ -14,22 +14,24 @@ import java.util.Optional;
 @RequestMapping("/carts")
 public class ItemCarrinhoController {
 
-    @Autowired
     private ItemCarrinhoService itemCarrinhoService;
 
     @PostMapping("/{cartId}/items")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ItemCarrinho> addItemToCart(@PathVariable int cartId, @RequestBody ItemCarrinhoDTO itemCarrinhoDTO) {
         ItemCarrinho newItem = itemCarrinhoService.addItemToCart(cartId, itemCarrinhoDTO);
         return ResponseEntity.ok(newItem);
     }
 
     @GetMapping("/{cartId}/items")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<ItemCarrinho>> getItemsByCartId(@PathVariable int cartId) {
         List<ItemCarrinho> items = itemCarrinhoService.getItemsByCartId(cartId);
         return ResponseEntity.ok(items);
     }
 
     @PutMapping("/{cartId}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Void> updateItemQuantity(@PathVariable int cartId, @RequestBody ItemCarrinhoDTO itemCarrinhoDTO) {
         Optional<ItemCarrinho> existingItem = itemCarrinhoService.getItemByCartIdAndProductId(cartId, itemCarrinhoDTO.getProdutoId());
         if (existingItem.isPresent()) {
@@ -40,6 +42,7 @@ public class ItemCarrinhoController {
     }
 
     @DeleteMapping("/{cartId}/items/{produtoId}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Void> deleteItemFromCart(@PathVariable int cartId, @PathVariable long produtoId) {
         Optional<ItemCarrinho> existingItem = itemCarrinhoService.getItemByCartIdAndProductId(cartId, produtoId);
         if (existingItem.isPresent()) {
