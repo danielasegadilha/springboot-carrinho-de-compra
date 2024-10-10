@@ -3,7 +3,6 @@ package br.senac.rj.grupo1.carrinhodecompra.controllers;
 import br.senac.rj.grupo1.carrinhodecompra.dto.ItemCarrinhoDTO;
 import br.senac.rj.grupo1.carrinhodecompra.entities.ItemCarrinho;
 import br.senac.rj.grupo1.carrinhodecompra.services.ItemCarrinhoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
