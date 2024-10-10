@@ -1,15 +1,15 @@
 package br.senac.rj.grupo1.carrinhodecompra.dto;
 
 public class ItemCarrinhoDTO {
-    private Long produtoId;
+    private Integer produtoId;
     private Integer quantidade;
 
     // Getters e Setters
-    public Long getProdutoId() {
+    public Integer getProdutoId() {
         return produtoId;
     }
 
-    public void setProdutoId(Long produtoId) {
+    public void setProdutoId(Integer produtoId) {
         this.produtoId = produtoId;
     }
 

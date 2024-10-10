@@ -2,7 +2,7 @@ package br.senac.rj.grupo1.carrinhodecompra.controllers;
 
 import br.senac.rj.grupo1.carrinhodecompra.dto.ItemCarrinhoDTO;
 import br.senac.rj.grupo1.carrinhodecompra.entities.ItemCarrinho;
-import br.senac.rj.grupo1.carrinhodecompra.service.ItemCarrinhoService;
+import br.senac.rj.grupo1.carrinhodecompra.services.ItemCarrinhoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,21 +29,21 @@ public class ItemCarrinhoController {
         return ResponseEntity.ok(items);
     }
 
-    @PutMapping("/{cartId}/items/{itemId}")
-    public ResponseEntity<Void> updateItemQuantity(@PathVariable int cartId, @PathVariable int itemId, @RequestBody ItemCarrinhoDTO itemCarrinhoDTO) {
-        Optional<ItemCarrinho> existingItem = itemCarrinhoService.getItemById(itemId);
+    @PutMapping("/{cartId}")
+    public ResponseEntity<Void> updateItemQuantity(@PathVariable int cartId, @RequestBody ItemCarrinhoDTO itemCarrinhoDTO) {
+        Optional<ItemCarrinho> existingItem = itemCarrinhoService.getItemByCartIdAndProductId(cartId, itemCarrinhoDTO.getProdutoId());
         if (existingItem.isPresent()) {
-            itemCarrinhoService.updateItemQuantity(itemId, itemCarrinhoDTO.getQuantidade());
+            itemCarrinhoService.updateItemQuantity(cartId, itemCarrinhoDTO);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{cartId}/items/{itemId}")
-    public ResponseEntity<Void> deleteItemFromCart(@PathVariable int cartId, @PathVariable int itemId) {
-        Optional<ItemCarrinho> existingItem = itemCarrinhoService.getItemById(itemId);
+    @DeleteMapping("/{cartId}/items/{produtoId}")
+    public ResponseEntity<Void> deleteItemFromCart(@PathVariable int cartId, @PathVariable long produtoId) {
+        Optional<ItemCarrinho> existingItem = itemCarrinhoService.getItemByCartIdAndProductId(cartId, produtoId);
         if (existingItem.isPresent()) {
-            itemCarrinhoService.deleteItemFromCart(cartId, itemId);
+            itemCarrinhoService.deleteItemFromCart(cartId, produtoId);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

@@ -1,4 +1,4 @@
-package br.senac.rj.grupo1.carrinhodecompra.service;
+package br.senac.rj.grupo1.carrinhodecompra.services;
 
 import br.senac.rj.grupo1.carrinhodecompra.dto.ItemCarrinhoDTO;
 import br.senac.rj.grupo1.carrinhodecompra.entities.Carrinho;
@@ -43,16 +43,20 @@ public class ItemCarrinhoService {
     }
 
     @Transactional
-    public void updateItemQuantity(int itemId, int quantidade) {
-        itemCarrinhoRepository.updateItemQuantity(itemId, quantidade);
+    public void updateItemQuantity(int cartId, ItemCarrinhoDTO itemCarrinhoDTO) {
+        itemCarrinhoRepository.updateItemQuantity(cartId, itemCarrinhoDTO.getProdutoId(), itemCarrinhoDTO.getQuantidade());
     }
 
     @Transactional
-    public void deleteItemFromCart(int cartId, int itemId) {
-        itemCarrinhoRepository.deleteById(itemId);
+    public void deleteItemFromCart(int cartId, long produtoId) {
+        itemCarrinhoRepository.deleteItemFromCart(cartId, produtoId);
     }
 
     public Optional<ItemCarrinho> getItemById(int itemId) {
         return itemCarrinhoRepository.findById(itemId);
+    }
+    
+    public Optional<ItemCarrinho> getItemByCartIdAndProductId(int cartId, long produtoId) {
+        return itemCarrinhoRepository.findByCartIdAndProductId(cartId, produtoId);
     }
 }
