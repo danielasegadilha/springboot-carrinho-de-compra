@@ -20,11 +20,16 @@ public interface CarrinhoRepository extends JpaRepository<Carrinho, Integer>{
 	@Query("SELECT c FROM Carrinho c WHERE c.status != -1")
 	List<Carrinho> findCarrinhosAtivos();
 	
-	@Modifying
-	@Query(value = "UPDATE carts c SET c.status = -1 WHERE c.id = :id", nativeQuery = true)
-	void softDeleteCarrinhoById(@Param("id") int id);
+	@Query("SELECT c FROM Carrinho c WHERE c.status = 2 AND c.usuarioId = :usuarioId")
+    List<Carrinho> findCarrinhosFinalizadosByUserId(@Param("usuarioId") int usuarioId);
 	
 	@Modifying
+	@Transactional
+	@Query(value = "UPDATE carts c SET c.status = -1 WHERE c.id = :id", nativeQuery = true)
+	List<Carrinho> softDeleteCarrinhoById(@Param("id") int id);
+	
+	@Modifying
+	@Transactional
 	@Query(value = "UPDATE carts c SET c.status = 2 WHERE c.id = :id", nativeQuery = true)
 	void FinalizarCarrinhoById(@Param("id") int id);
 	

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Component
-@FeignClient (name="Av1", url="10.136.36.87:8080", path="/acompanhamento")
+@FeignClient (name="Av1", url="10.136.36.141:8080", path="/acompanhamento")
 public interface AcompanhamentoPedidoFeignClient {
     @PostMapping("/{cartId}/atualizar?status=PREPARACAO")
     public ResponseEntity<Void> createAcompanhamentoPedido(@PathVariable int cartId);

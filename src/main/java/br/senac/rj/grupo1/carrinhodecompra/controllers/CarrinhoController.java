@@ -51,6 +51,12 @@ public class CarrinhoController {
 		return ResponseEntity.ok(carrinhoEncontrado);
 	}
 	
+	@GetMapping("/api/carrinho/finalizado/{user_id}")
+	public ResponseEntity<List<Carrinho>> getCarrinhoFinalizadoByUserId(@PathVariable int user_id){
+		List<Carrinho> carrinhos = carrinhoService.getCarrinhoFinalizadoByUserId(user_id);
+		return ResponseEntity.ok(carrinhos);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<Carrinho>> getAllCarrinhos(){
 		List<Carrinho> carrinhos = carrinhoService.getAllCarrinhos();
