@@ -16,6 +16,6 @@ public interface EstoqueFeignClient {
 	@GetMapping(value = "/{produtoId}")
 	public ResponseEntity<EstoqueDTO>findById(@PathVariable Long produtoId);
 	
-	@PutMapping("/{produtoId}")
+	@PutMapping("atualizar_quantidade/{produtoId}")
     public ResponseEntity<Void> updateEstoqueById(@PathVariable long produtoId, @RequestBody int quantidade);
 }

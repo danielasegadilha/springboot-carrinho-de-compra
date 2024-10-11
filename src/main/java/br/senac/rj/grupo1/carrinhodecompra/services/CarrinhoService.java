@@ -58,7 +58,7 @@ public class CarrinhoService {
 		
 		carrinhoRepository.FinalizarCarrinhoById(id);
 		
-		acompanhamentoPedidoFeignClient.createAcompanhamentoPedido(usuarioId, id, "PREPARACAO");
+		//acompanhamentoPedidoFeignClient.createAcompanhamentoPedido(usuarioId, id, "PREPARACAO");
 		
 		List<ItemCarrinho> itens = itemCarrinhoService.getItemsByCartId(id);
 		for (ItemCarrinho item : itens) {
