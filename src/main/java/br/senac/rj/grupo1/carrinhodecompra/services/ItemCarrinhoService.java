@@ -59,4 +59,5 @@ public class ItemCarrinhoService {
     public Optional<ItemCarrinho> getItemByCartIdAndProductId(int cartId, long produtoId) {
         return itemCarrinhoRepository.findByCartIdAndProductId(cartId, produtoId);
     }
+   
 }
