@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import br.senac.rj.grupo1.carrinhodecompra.dto.EstoqueDTO;
 
 @Component
-@FeignClient (name="catalogoProdutos", url="10.136.36.87:8080", path="/estoque")
+@FeignClient (name="catalogoProdutos", url="10.136.65.214:8080", path="/estoque")
 public interface EstoqueFeignClient {
 	@GetMapping(value = "/{produtoId}")
 	public ResponseEntity<EstoqueDTO>findById(@PathVariable Long produtoId);

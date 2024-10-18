@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Component
-@FeignClient (name="Av1", url="10.136.36.141:8080", path="/acompanhamento")
+@FeignClient (name="Av1", url="10.136.65.160:8080", path="/acompanhamento")
 public interface AcompanhamentoPedidoFeignClient {
 	@PostMapping("/{userId}/{cartId}/atualizar")
 	ResponseEntity<Void> createAcompanhamentoPedido(@PathVariable("userId") long userId, @PathVariable("cartId") int cartId, @RequestParam("status") String status);

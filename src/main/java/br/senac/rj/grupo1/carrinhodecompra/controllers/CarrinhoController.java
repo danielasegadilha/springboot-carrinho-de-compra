@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class CarrinhoController {
 	}
 	
 	@PostMapping("/{user_id}")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<Carrinho> createCarrinho(@PathVariable int user_id){
 		Carrinho carrinhoCriado = carrinhoService.createCarrinho(user_id);
 		return new ResponseEntity<>(carrinhoCriado, HttpStatus.CREATED);
@@ -34,30 +36,35 @@ public class CarrinhoController {
 	
 	
 	@PutMapping("/api/carrinho/{cart_id}/finalizar")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<Void> finalizarCarrinhoById(@PathVariable int cart_id){
 		carrinhoService.finalizaCarrinhoById(cart_id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping("/{cart_id}")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<Void> deleteCarrinhoById(@PathVariable int cart_id){
 		carrinhoService.removeCarrinhoById(cart_id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/{cart_id}")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<Carrinho> getCarrinhoById(@PathVariable int cart_id){
 		Carrinho carrinhoEncontrado = carrinhoService.getCarrinhoById(cart_id);
 		return ResponseEntity.ok(carrinhoEncontrado);
 	}
 	
 	@GetMapping("/api/carrinho/finalizado/{user_id}")
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<List<Carrinho>> getCarrinhoFinalizadoByUserId(@PathVariable int user_id){
 		List<Carrinho> carrinhos = carrinhoService.getCarrinhoFinalizadoByUserId(user_id);
 		return ResponseEntity.ok(carrinhos);
 	}
 	
 	@GetMapping
+	@CrossOrigin(origins = "*")
 	public ResponseEntity<List<Carrinho>> getAllCarrinhos(){
 		List<Carrinho> carrinhos = carrinhoService.getAllCarrinhos();
 		return ResponseEntity.ok(carrinhos);

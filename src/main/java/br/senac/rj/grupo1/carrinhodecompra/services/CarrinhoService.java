@@ -1,14 +1,14 @@
 package br.senac.rj.grupo1.carrinhodecompra.services;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.senac.rj.grupo1.carrinhodecompra.exception.EntidadeNaoEncontradaException;
 import br.senac.rj.grupo1.carrinhodecompra.interfacefeign.AcompanhamentoPedidoFeignClient;
 import br.senac.rj.grupo1.carrinhodecompra.interfacefeign.EstoqueFeignClient;
+import br.senac.rj.grupo1.carrinhodecompra.interfacefeign.NotaFiscalFeignClient;
+import br.senac.rj.grupo1.carrinhodecompra.dto.NotaFiscalDTO;
 import br.senac.rj.grupo1.carrinhodecompra.entities.Carrinho;
 import br.senac.rj.grupo1.carrinhodecompra.entities.ItemCarrinho;
 import br.senac.rj.grupo1.carrinhodecompra.repository.CarrinhoRepository;
@@ -21,6 +21,9 @@ public class CarrinhoService {
 	
 	@Autowired
 	EstoqueFeignClient estoqueFeignClient;
+	
+	@Autowired
+	NotaFiscalFeignClient notaFiscalFeignClient;
 	
 	@Autowired
 	ItemCarrinhoService itemCarrinhoService;
@@ -56,9 +59,11 @@ public class CarrinhoService {
 		
 		long usuarioId = carrinho.getUsuarioId();
 		
+		NotaFiscalDTO notaFiscal = new NotaFiscalDTO(1, carrinho.getValorTotal(), usuarioId, 1L,  (long) carrinho.getId());
+		
 		carrinhoRepository.FinalizarCarrinhoById(id);
 		
-		//acompanhamentoPedidoFeignClient.createAcompanhamentoPedido(usuarioId, id, "PREPARACAO");
+		acompanhamentoPedidoFeignClient.createAcompanhamentoPedido(usuarioId, id, "PENDENTE");
 		
 		List<ItemCarrinho> itens = itemCarrinhoService.getItemsByCartId(id);
 		for (ItemCarrinho item : itens) {
@@ -66,6 +71,9 @@ public class CarrinhoService {
 	        int quantidade = item.getQuantidade();
 	        estoqueFeignClient.updateEstoqueById(produtoId, quantidade);
 	    }
+		
+		notaFiscalFeignClient.adicionarNotaFiscal(notaFiscal);
+
 	}
 	
 	public Carrinho getCarrinhoById(int id) {
