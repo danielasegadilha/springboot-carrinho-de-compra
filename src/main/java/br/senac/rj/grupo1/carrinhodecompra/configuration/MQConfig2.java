@@ -9,36 +9,36 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 
-
 @Component
-public class MQConfig {
+public class MQConfig2 {
 
-	@Autowired 
-	private AmqpAdmin amqpAdmin;
-	private Queue queue;
+    @Autowired
+    private AmqpAdmin amqpAdmin;
+    
+    private Queue queue;
 
-	private Queue queue (String queueName){
-		return new Queue(queueName, true, false, false);
-	}
-
-	private DirectExchange createDirectExchange(){
-		return new DirectExchange("ecommercermq");
-	}
-	
-	@PostConstruct
-	private void Create (){
-		this.queue = new Queue("fila-ecommerce");
-
+    private Queue createQueue(String queueName) {
+        return new Queue(queueName, true, false, false);
+    }
+    
+    private DirectExchange createDirectExchange() {
+        return new DirectExchange("ecommercermq");
+    }
+    
+    @PostConstruct
+    private void create() {
+        // Create the queue
+        this.queue = createQueue("fila-ecommerce");
+        
         // Create the direct exchange
         DirectExchange directExchange = createDirectExchange();
         
         // Create the binding
         Binding binding = new Binding(queue.getName(), Binding.DestinationType.QUEUE, directExchange.getName(), queue.getName(), null);
-        						
-		amqpAdmin.declareQueue(queue);
-		amqpAdmin.declareExchange(directExchange);
-		amqpAdmin.declareBinding(binding);
-	}
-
+        
+        // Declare the queue, exchange, and binding
+        amqpAdmin.declareQueue(queue);
+        amqpAdmin.declareExchange(directExchange);
+        amqpAdmin.declareBinding(binding);
+    }
 }
-

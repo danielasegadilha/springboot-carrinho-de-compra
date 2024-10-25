@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import br.senac.rj.grupo1.carrinhodecompra.dto.EstoqueDTO;
 
 @Component
-@FeignClient (name="catalogoProdutos", url="10.136.65.214:8080", path="/estoque")
+@FeignClient(name = "catalogoProdutos", url = "http://10.136.65.214:8080", path = "/estoque")
 public interface EstoqueFeignClient {
-	@GetMapping(value = "/{produtoId}")
-	public ResponseEntity<EstoqueDTO>findById(@PathVariable Long produtoId);
-	
-	@PutMapping("atualizar_quantidade/{produtoId}")
-    public ResponseEntity<Void> updateEstoqueById(@PathVariable long produtoId, @RequestBody int quantidade);
+    @GetMapping(value = "/{produtoId}")
+    public ResponseEntity<EstoqueDTO> findById(@PathVariable("produtoId") Long produtoId);
+
+    @PutMapping("/atualizar_quantidade/{produtoId}")
+    public ResponseEntity<Void> updateEstoqueById(@PathVariable("produtoId") long produtoId, @RequestBody int quantidade);
 }
