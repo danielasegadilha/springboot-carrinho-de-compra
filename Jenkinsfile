@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Verificar Repositório') {
+        stage('Verificar Repositorio') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/victor']], useRemoteConfigs:[[url: 'https://github.com/danielasegadilha/springboot-carrinho-de-compra.git']]])
             }
         }
 
-        stage('Instalar Dependências e Build') {
+        stage('Instalar Dependencias e Build') {
             steps {
                 script {
                     bat 'mvn clean install -DskipTests'
