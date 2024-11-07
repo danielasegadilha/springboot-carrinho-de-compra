@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Verificar Repositório') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], useRemoteConfigs:[[url: 'https://github.com/danielasegadilha/springboot-carrinho-de-compra.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/victor']], useRemoteConfigs:[[url: 'https://github.com/danielasegadilha/springboot-carrinho-de-compra.git']]])
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
                     def appName = 'grupo1.carrinhodecompra'
                     def imageTag = "${appName}:${env.BUILD_ID}"
 
-                    bat "docker stop ${appName} || exit 0"  // Caso o container não exista, o comando não falha
-                    bat "docker rm ${appName}  || exit 0"   // Remove o container existente (se houver)
+                    bat "docker stop ${appName} || exit 0"  
+                    bat "docker rm ${appName}  || exit 0"  
 
                   
