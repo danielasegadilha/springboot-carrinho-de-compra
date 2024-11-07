@@ -8,13 +8,13 @@ pipeline {
             }
         }
 
-        //stage('Instalar Dependências e Build') {
-           // steps {
-             //   script {
-                //    bat 'mvn clean install -DskipTests'
-              //  }
-          //  }
-    //    }
+        stage('Instalar Dependências e Build') {
+            steps {
+                script {
+                    bat 'mvn clean install -DskipTests'
+                }
+            }
+        }
 
         stage('Construir Imagem Docker') {
             steps {
