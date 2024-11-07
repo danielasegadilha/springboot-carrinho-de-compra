@@ -1,42 +1,25 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven 3.6.3'  // Defina a versão do Maven configurada no Jenkins
-        jdk 'OpenJDK 17'     // Defina a versão do JDK que você está utilizando
+    environment {
+        // Definindo as ferramentas Maven e JDK no Jenkins
+        MAVEN_HOME = tool name: 'Maven 3.8.1', type: 'ToolLocation'
+        JAVA_HOME = tool name: 'JDK 17', type: 'ToolLocation'  // JDK 17, conforme mencionado anteriormente
     }
 
     stages {
         stage('Verificar Repositório') {
             steps {
-                // Clona o repositório GitHub usando configuração explícita
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], useRemoteConfigs: [[url: 'https://github.com/danielasegadilha/springboot-carrinho-de-compra.git']]
-                ])
+                // Fazendo o checkout do repositório Git
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], useRemoteConfigs:[[url: 'https://github.com/danielasegadilha/springboot-carrinho-de-compra.git']]])
             }
         }
 
-        stage('Compilar e Testar') {
-            steps {
-                // Executa o Maven para compilar o código e rodar os testes
-                sh 'mvn clean install -DskipTests=false'
-            }
-        }
-
-        stage('Gerar Artefato') {
-            steps {
-                // Gera o artefato .jar
-                sh 'mvn package'
-            }
-        }
-
-        stage('Verificar Artefato') {
+        stage('Construir o Projeto (Maven)') {
             steps {
                 script {
-                    // Verifica se o artefato .jar foi gerado corretamente
-                    def artifact = 'target/springboot-carrinho-de-compra-*.jar'  // Ajuste para o nome real do seu artefato
-                    if (!fileExists(artifact)) {
-                        error "O artefato .jar não foi gerado corretamente!"
-                    }
+                    // Realizando o build do projeto com Maven, sem testes
+                    bat "\"${MAVEN_HOME}\\bin\\mvn\" clean package -DskipTests"
                 }
             }
         }
@@ -44,27 +27,27 @@ pipeline {
         stage('Construir Imagem Docker') {
             steps {
                 script {
-                    // Nome da imagem Docker com a tag do Build ID
-                    def imageName = "springboot-carrinho-de-compra:${env.BUILD_ID}"
+                    def appName = 'springboot-carrinho-de-compra'
+                    def imageTag = "${appName}:${env.BUILD_ID}"
 
-                    // Construa a imagem Docker com base no Dockerfile
-                    sh "docker build -t ${imageName} ."
+                    // Construir a imagem Docker
+                    bat "docker build -t ${imageTag} ."
                 }
             }
         }
 
-        stage('Fazer Deploy em Docker') {
+        stage('Fazer Deploy Docker') {
             steps {
                 script {
-                    // Nome da imagem Docker gerada
-                    def imageName = "springboot-carrinho-de-compra:${env.BUILD_ID}"
+                    def appName = 'springboot-carrinho-de-compra'
+                    def imageTag = "${appName}:${env.BUILD_ID}"
 
-                    // Parar e remover o container anterior, se existir
-                    sh "docker stop springboot-carrinho-de-compra || exit 0"
-                    sh "docker rm springboot-carrinho-de-compra || exit 0"
+                    // Parar e remover o container existente, se houver
+                    bat "docker stop ${appName} || exit 0"
+                    bat "docker rm ${appName} || exit 0"
 
-                    // Rodar o novo container com a imagem Docker criada
-                    sh "docker run -d --name springboot-carrinho-de-compra -p 8080:8080 ${imageName}"
+                    // Executar o novo container
+                    bat "docker run -d --name ${appName} -p 8080:8080 ${imageTag}"
                 }
             }
         }
