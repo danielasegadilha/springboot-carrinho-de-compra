@@ -34,5 +34,9 @@ pipeline {
 
                     bat "docker stop ${appName} || exit 0"  
                     bat "docker rm ${appName}  || exit 0"  
-
+                }
+            }
+        }
+    }
+}
                   
