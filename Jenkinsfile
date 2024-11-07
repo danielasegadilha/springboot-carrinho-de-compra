@@ -60,8 +60,8 @@ pipeline {
                     def imageName = "springboot-carrinho-de-compra:${env.BUILD_ID}"
 
                     // Parar e remover o container anterior, se existir
-                    sh "docker stop springboot-carrinho-de-compra || true"
-                    sh "docker rm springboot-carrinho-de-compra || true"
+                    sh "docker stop springboot-carrinho-de-compra || exit 0"
+                    sh "docker rm springboot-carrinho-de-compra || exit 0"
 
                     // Rodar o novo container com a imagem Docker criada
                     sh "docker run -d --name springboot-carrinho-de-compra -p 8080:8080 ${imageName}"
