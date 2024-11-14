@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
         stage('Verificar Repositorio') {
             steps {
@@ -39,4 +38,4 @@ pipeline {
         }
     }
 }
-                  
+                 
