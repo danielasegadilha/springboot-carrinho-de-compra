@@ -33,6 +33,8 @@ pipeline {
 
                     bat "docker stop ${appName} || exit 0"  
                     bat "docker rm ${appName}  || exit 0"  
+
+                    bat "docker run -d --name ${appName} -p 8081:8081 ${imageTag}"
                 }
             }
         }
